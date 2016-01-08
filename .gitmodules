@@ -1,3 +1,6 @@
 [submodule "tmk"]
 	path = tmk
 	url = https://github.com/doopai/tmk_keyboard
+[submodule "docs/pcb"]
+	path = docs/pcb
+	url = https://github.com/doopai/gh60-pcb
