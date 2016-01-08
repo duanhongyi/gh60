@@ -1,0 +1,10 @@
+gcc/_build
+.DS_Store
+*.hex
+.dep
+obj_gh60_lufa
+*.eep
+*.elf
+*.lss
+*.map
+*.sym
