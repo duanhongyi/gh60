@@ -4,6 +4,8 @@
 #include "keyboard.h"
 #include "suspend.h"
 #include "lufa.h"
+#include "protocol/serial.h"
+
 
 /*******************************************************************************
  * main
@@ -30,14 +32,19 @@ static void setup_usb(void)
     print_set_sendchar(sendchar);
 }
 
+static void disable_jtag(void){
+	MCUCR = (1<<JTD);
+	MCUCR = (1<<JTD);
+}
+
 int main(void)  __attribute__ ((weak));
 int main(void)
 {
     setup_mcu();
+    disable_jtag();
     keyboard_setup();
     setup_usb();
     sei();
-
     /* wait for USB startup & debug output */
     while (USB_DeviceState != DEVICE_STATE_Configured) {
 #if defined(INTERRUPT_CONTROL_ENDPOINT)
@@ -50,7 +57,7 @@ int main(void)
 
     /* init modules */
     keyboard_init();
-    host_set_driver(&lufa_driver);
+    host_set_driver(mixin_driver());
 #ifdef SLEEP_LED_ENABLE
     sleep_led_init();
 #endif
@@ -64,7 +71,6 @@ int main(void)
                     USB_Device_SendRemoteWakeup();
             }
         }
-
         keyboard_task();
 
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
