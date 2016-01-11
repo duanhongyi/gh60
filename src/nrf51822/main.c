@@ -4,7 +4,6 @@
 #include "keyboard.h"
 #include "suspend.h"
 #include "lufa.h"
-#include "protocol/serial.h"
 
 
 /*******************************************************************************
@@ -18,6 +17,10 @@ static void setup_mcu(void)
 
     /* Disable clock division */
     clock_prescale_set(clock_div_1);
+
+    //Disable jtag
+	MCUCR = (1<<JTD);
+	MCUCR = (1<<JTD);
 }
 
 static void setup_usb(void)
@@ -32,16 +35,11 @@ static void setup_usb(void)
     print_set_sendchar(sendchar);
 }
 
-static void disable_jtag(void){
-	MCUCR = (1<<JTD);
-	MCUCR = (1<<JTD);
-}
 
 int main(void)  __attribute__ ((weak));
 int main(void)
 {
     setup_mcu();
-    disable_jtag();
     keyboard_setup();
     setup_usb();
     sei();
@@ -57,7 +55,7 @@ int main(void)
 
     /* init modules */
     keyboard_init();
-    host_set_driver(mixin_driver());
+    host_set_driver(&lufa_driver);
 #ifdef SLEEP_LED_ENABLE
     sleep_led_init();
 #endif
