@@ -66,58 +66,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
+/*soft uart config*/
+#define SERIAL_SOFT_BAUD 19200
+#define SERIAL_SOFT_STOP_BITS 1
+//soft uart tx config
+#define SERIAL_SOFT_TX_DDR DDRD
+#define SERIAL_SOFT_TX_PORT PORTD
+#define SERIAL_SOFT_TX_BIT 0
 
-
-/* Serial(USART) configuration
- *     asynchronous, negative logic, 1200baud, no flow control
- *     1-start bit, 8-data bit, non parity, 1-stop bit
- */
-#define SERIAL_SOFT_BAUD            1200
-#define SERIAL_SOFT_PARITY_NONE
-#define SERIAL_SOFT_BIT_ORDER_LSB
-#define SERIAL_SOFT_LOGIC_NEGATIVE
-/* RXD Port */
-#define SERIAL_SOFT_RXD_ENABLE
-#define SERIAL_SOFT_RXD_DDR         DDRF
-#define SERIAL_SOFT_RXD_PORT        PORTF
-#define SERIAL_SOFT_RXD_PIN         PINF
-#define SERIAL_SOFT_RXD_BIT         PF7
-#define SERIAL_SOFT_RXD_VECT        INT2_vect
-/* RXD Interupt */
-#ifdef SERIAL_SOFT_LOGIC_NEGATIVE
-/* enable interrupt: INT2(rising edge) */
-#define INTR_TRIG_EDGE   ((1<<ISC21)|(1<<ISC20))
-#else
-/* enable interrupt: INT2(falling edge) */
-#define INTR_TRIG_EDGE   ((1<<ISC21)|(0<<ISC20))
-#endif
-#define SERIAL_SOFT_RXD_INIT()      do { \
-    /* pin configuration: input with pull-up */ \
-    SERIAL_SOFT_RXD_DDR &= ~(1<<SERIAL_SOFT_RXD_BIT); \
-    SERIAL_SOFT_RXD_PORT |= (1<<SERIAL_SOFT_RXD_BIT); \
-    EICRA |= INTR_TRIG_EDGE; \
-    EIMSK |= (1<<INT2); \
-    sei(); \
-} while (0)
-#define SERIAL_SOFT_RXD_INT_ENTER()
-#define SERIAL_SOFT_RXD_INT_EXIT()  do { \
-    /* clear interrupt  flag */ \
-    EIFR = (1<<INTF2); \
-} while (0)
-#define SERIAL_SOFT_RXD_READ()      (SERIAL_SOFT_RXD_PIN&(1<<SERIAL_SOFT_RXD_BIT))
-/* TXD Port */
-#define SERIAL_SOFT_TXD_ENABLE
-#define SERIAL_SOFT_TXD_DDR         DDRF
-#define SERIAL_SOFT_TXD_PORT        PORTF
-#define SERIAL_SOFT_TXD_PIN         PINF
-#define SERIAL_SOFT_TXD_BIT         PF4
-#define SERIAL_SOFT_TXD_HI()        do { SERIAL_SOFT_TXD_PORT |=  (1<<SERIAL_SOFT_TXD_BIT); } while (0)
-#define SERIAL_SOFT_TXD_LO()        do { SERIAL_SOFT_TXD_PORT &= ~(1<<SERIAL_SOFT_TXD_BIT); } while (0)
-#define SERIAL_SOFT_TXD_INIT()      do { \
-    /* pin configuration: output */ \
-    SERIAL_SOFT_TXD_DDR |= (1<<SERIAL_SOFT_TXD_BIT); \
-    /* idle */ \
-    SERIAL_SOFT_TXD_ON(); \
-} while (0)
+#define SERIAL_SOFT_MICROSECONDS_OVERHEAD_ADJUST 0
+#define SERIAL_SOFT_MICROSECONDS_PER_BIT ((1000000ul / SERIAL_SOFT_BAUD) - SERIAL_SOFT_MICROSECONDS_OVERHEAD_ADJUST)
 
 #endif
