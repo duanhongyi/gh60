@@ -1,10 +1,11 @@
 #include "sendchar.h"
-#include "print.h"
 #include "descriptor.h"
 #include "keyboard.h"
-#include "suspend.h"
 #include "lufa.h"
+#include "print.h"
+#include "protocol/serial.h"
 
+#include "mixin_driver.h"
 
 /*******************************************************************************
  * main
@@ -41,38 +42,19 @@ int main(void)
 {
     setup_mcu();
     keyboard_setup();
-    setup_usb();
     sei();
-    /* wait for USB startup & debug output */
-    while (USB_DeviceState != DEVICE_STATE_Configured) {
-#if defined(INTERRUPT_CONTROL_ENDPOINT)
-        ;
-#else
-        USB_USBTask();
-#endif
-    }
-    print("USB configured.\n");
+    serial_init();
+    setup_usb();
 
     /* init modules */
     keyboard_init();
-    host_set_driver(&lufa_driver);
+    host_set_driver(&mixin_driver);
 #ifdef SLEEP_LED_ENABLE
     sleep_led_init();
 #endif
-
     print("Keyboard start.\n");
     while (1) {
-        while (USB_DeviceState == DEVICE_STATE_Suspended) {
-            print("[s]");
-            suspend_power_down();
-            if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
-                    USB_Device_SendRemoteWakeup();
-            }
-        }
-        keyboard_task();
-
-#if !defined(INTERRUPT_CONTROL_ENDPOINT)
-        USB_USBTask();
-#endif
+    	keyboard_task();
+    	mixin_driver_task();
     }
 }

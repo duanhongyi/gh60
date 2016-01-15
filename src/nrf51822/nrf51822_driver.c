@@ -14,7 +14,7 @@ static void send_mouse(report_mouse_t *report);
 static void send_system(uint16_t data);
 static void send_consumer(uint16_t data);
 
-static host_driver_t driver = {
+host_driver_t nrf51822_driver = {
         keyboard_leds,
         send_keyboard,
         send_mouse,
@@ -44,11 +44,12 @@ static void send_keyboard(report_keyboard_t *report)
     	uint8_t key = report->raw[i];
     	char str_key[3] = { 0 };
     	sprintf((char *) str_key, "%d", (int) key);
-    	for(int i=0; i<3; i++){
-    		if(str_key[i] == '\n'){
+
+    	for(int j=0; j<3; j++){
+    		if(str_key[j] == '\0'){
     			break;
     		}else{
-    			at_command[count++] = str_key[i];
+    			at_command[count++] = str_key[j];
     		}
     	}
     }
@@ -102,9 +103,4 @@ void nrf51822_hardware_reset(void){
 
 void nrf51822_task(void){
 	serial_recv();
-}
-
-host_driver_t *nrf51822_driver(void)
-{
-    return &driver;
 }
