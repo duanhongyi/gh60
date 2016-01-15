@@ -6,7 +6,6 @@
 #include "host_driver.h"
 #include "lufa.h"
 #include "common/wait.h"
-
 #include "./mixin_driver.h"
 #include "./nrf51822_driver.h"
 

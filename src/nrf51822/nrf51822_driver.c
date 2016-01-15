@@ -42,6 +42,9 @@ static void send_keyboard(report_keyboard_t *report)
     		at_command[count++] = '+';
     	}
     	uint8_t key = report->raw[i];
+    	if(key == 57){
+    		nrf51822_keyboard_leds = nrf51822_keyboard_leds? 0:2;
+    	}
     	char str_key[3] = { 0 };
     	sprintf((char *) str_key, "%d", (int) key);
 
