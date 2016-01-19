@@ -14,7 +14,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+#include "lufa.h"
+#include "nrf51822/nrf51822_driver.h"
+
 #include "keymap_common.h"
+
 
 
 /* translates key to keycode */
@@ -27,4 +32,18 @@ uint8_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 action_t keymap_fn_to_action(uint8_t keycode)
 {
     return (action_t){ .code = pgm_read_word(&fn_actions[FN_INDEX(keycode)]) };
+}
+
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+    if (record->event.pressed) {
+        switch (id) {
+            case SWITCH_TO_BLE_DRIVER:
+            	mixin_change_driver(&nrf51822_driver);
+                break;
+            case SWITCH_TO_USB_DRIVER:
+            	mixin_change_driver(&lufa_driver);
+                break;
+        }
+    }
 }
