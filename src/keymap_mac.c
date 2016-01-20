@@ -97,6 +97,8 @@ const uint16_t PROGMEM fn_actions[] = {
     [2] = ACTION_LAYER_TOGGLE(5),     // toggle Esc overlay
     [3] = ACTION_MODS_KEY(MOD_RCTL|MOD_RSFT, KC_ESC), // Task(RControl,RShift+Esc)
     [4] = ACTION_LAYER_MOMENTARY(7),  // to Layout selector
-	[5] = ACTION_FUNCTION(SWITCH_TO_USB_DRIVER),  // switch to usb driver
-	[6] = ACTION_FUNCTION(SWITCH_TO_BLE_DRIVER),  // switch to usb driver
+    [5] = ACTION_DEFAULT_LAYER_SET(0),  // set qwerty layout
+    [6] = ACTION_DEFAULT_LAYER_SET(1),  // set colemak layout
+    [7] = ACTION_DEFAULT_LAYER_SET(2),  // set dvorak layout
+    [8] = ACTION_DEFAULT_LAYER_SET(3),  // set workman layout
 };
