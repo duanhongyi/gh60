@@ -1,3 +1,4 @@
+#include "suspend.h"
 #include "sendchar.h"
 #include "descriptor.h"
 #include "keyboard.h"
