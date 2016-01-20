@@ -52,4 +52,6 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM fn_actions[] = {
     [0] = ACTION_LAYER_TAP_KEY(1, KC_SPACE),
     [1] = ACTION_MODS_KEY(MOD_LSFT, KC_GRV),    // tilde
+	[2] = ACTION_FUNCTION(SWITCH_TO_USB_DRIVER),  // switch to usb driver
+	[3] = ACTION_FUNCTION(SWITCH_TO_BLE_DRIVER),  // switch to usb driver
 };

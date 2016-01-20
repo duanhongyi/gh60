@@ -137,9 +137,7 @@ const uint16_t PROGMEM fn_actions[] = {
     [2] = ACTION_LAYER_TAP_KEY(6, KC_SCLN),
     [3] = ACTION_LAYER_MOMENTARY(6),
     [4] = ACTION_LAYER_MOMENTARY(7),   // to Layout selector
-    [5] = ACTION_DEFAULT_LAYER_SET(0),  // set qwerty layout
-    [6] = ACTION_DEFAULT_LAYER_SET(1),  // set colemak layout
-    [7] = ACTION_DEFAULT_LAYER_SET(2),  // set dvorak layout
-    [8] = ACTION_DEFAULT_LAYER_SET(3),  // set workman layout
-    [9] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_GRV),
+	[5] = ACTION_FUNCTION(SWITCH_TO_USB_DRIVER),  // switch to usb driver
+	[6] = ACTION_FUNCTION(SWITCH_TO_BLE_DRIVER),  // switch to usb driver
+    [7] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_GRV),
 };

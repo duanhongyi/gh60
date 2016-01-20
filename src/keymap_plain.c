@@ -8,4 +8,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            LSFT,NO,  Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,NO,  RSFT, \
            LCTL,LGUI,LALT,          SPC,                     RALT,RGUI,APP, RCTL),
 };
-const uint16_t PROGMEM fn_actions[] = {};
+const uint16_t PROGMEM fn_actions[] = {
+	[0] = ACTION_FUNCTION(SWITCH_TO_USB_DRIVER),  // switch to usb driver
+	[1] = ACTION_FUNCTION(SWITCH_TO_BLE_DRIVER),  // switch to usb driver
+};
