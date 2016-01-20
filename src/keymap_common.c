@@ -39,10 +39,14 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
     if (record->event.pressed) {
         switch (id) {
             case SWITCH_TO_BLE_DRIVER:
-            	mixin_change_driver(&nrf51822_driver);
+                clear_keyboard();
+                _delay_ms(1000);
+                host_set_driver(&nrf51822_driver);
                 break;
             case SWITCH_TO_USB_DRIVER:
-            	mixin_change_driver(&lufa_driver);
+                clear_keyboard();
+                _delay_ms(1000);
+                host_set_driver(&lufa_driver);
                 break;
         }
     }
