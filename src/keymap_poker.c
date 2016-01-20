@@ -47,7 +47,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ,-----------------------------------------------------------.
      * |Esc| F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|       |
      * |-----------------------------------------------------------|
-     * |     |FnQ| Up|   |   |   |   |   |   |Cal|   |Hom|Ins|FnL  |
+     * |     |FnQ| Up|FN9|FN10|   |   |   |   |Cal|   |Hom|Ins|FnL  |
      * |-----------------------------------------------------------|
      * |      |Lef|Dow|Rig|   |   |Psc|Slk|Pau|   |Tsk|End|        |
      * |-----------------------------------------------------------|
@@ -62,7 +62,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     KEYMAP_ANSI(
         ESC, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, TRNS, \
-        TRNS,FN2, UP,  TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,CALC,TRNS,HOME,INS, FN4,  \
+        TRNS,FN2, UP,  FN9, FN10,TRNS,TRNS,TRNS,TRNS,CALC,TRNS,HOME,INS, FN4,  \
         TRNS,LEFT,DOWN,RGHT,TRNS,TRNS,PSCR,SLCK,PAUS,TRNS,FN3, END,      TRNS, \
         TRNS,DEL, TRNS,WHOM,MUTE,VOLU,VOLD,TRNS,PGUP,PGDN,DEL,           TRNS, \
         TRNS,TRNS,TRNS,          FN1,                     TRNS,TRNS,TRNS,TRNS),
@@ -101,4 +101,6 @@ const uint16_t PROGMEM fn_actions[] = {
     [6] = ACTION_DEFAULT_LAYER_SET(1),  // set colemak layout
     [7] = ACTION_DEFAULT_LAYER_SET(2),  // set dvorak layout
     [8] = ACTION_DEFAULT_LAYER_SET(3),  // set workman layout
+	[9] = ACTION_FUNCTION(SWITCH_TO_USB_DRIVER),  // switch to usb driver
+	[10] = ACTION_FUNCTION(SWITCH_TO_BLE_DRIVER),  // switch to ble driver
 };
