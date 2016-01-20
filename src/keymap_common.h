@@ -81,8 +81,9 @@ extern const uint16_t fn_actions[];
     K40, K41, K42,           K45,                K49, K4A, K4B, K4C, K4D  \
 )
 
-enum FUNCTION_ID{
+enum{
 	SWITCH_TO_BLE_DRIVER=1,
 	SWITCH_TO_USB_DRIVER
-};
+} function_id_t;
+
 #endif
