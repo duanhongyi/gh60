@@ -1,3 +1,7 @@
+#include <avr/io.h>
+#include <avr/power.h>
+#include <avr/wdt.h>
+
 #include "suspend.h"
 #include "sendchar.h"
 #include "descriptor.h"
